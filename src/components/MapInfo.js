@@ -1,4 +1,4 @@
-const MapInfoComponent = ({place}) => {
+const MapInfo = ({place}) => {
     return (
         <div className="map-info">
             <h3>{place.name}</h3>
@@ -7,4 +7,4 @@ const MapInfoComponent = ({place}) => {
     );
 };
 
-export default MapInfoComponent;
+export default MapInfo;

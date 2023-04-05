@@ -1,9 +1,9 @@
 import GoogleMapReact from 'google-map-react';
-import MapMarkerComponent from './MapMarkerComponent';
+import MapMarker from './MapMarker';
 import './Map.css';
 import { useState } from 'react';
 
-const MapComponent = ({ playgrounds = [] }) => {
+const Map = ({ playgrounds = [] }) => {
   const defaultProps = {
     center: {
       lat: 30.5052,
@@ -32,7 +32,7 @@ const MapComponent = ({ playgrounds = [] }) => {
   };
 
   return (
-    <div style={{ height: '600px', width: '100%' }}>
+    <div style={{ height: '500px', width: '500px' }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: "AIzaSyApvFYldWTB_D9x2IOptP11JL-n9PjxXcM" }}
         defaultCenter={defaultProps.center}
@@ -41,7 +41,7 @@ const MapComponent = ({ playgrounds = [] }) => {
         onClick={onMapClick}
       >
         {places.map((place) => (
-              <MapMarkerComponent
+              <MapMarker
                 key={place.id}
                 lat={place.geometry.location.lat}
                 lng={place.geometry.location.lng}
@@ -55,4 +55,4 @@ const MapComponent = ({ playgrounds = [] }) => {
   )
 };
 
-export default MapComponent;
+export default Map;

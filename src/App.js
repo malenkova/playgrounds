@@ -1,5 +1,5 @@
 import './App.css';
-import MapComponent from './components/MapComponent';
+import Map from './components/Map';
 import playgroundsList from './data/playgrounds';
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
       </header>
       <main>
         <h1>Playgrounds</h1>
-        <MapComponent playgrounds={ playgroundsList} />
+        <Map playgrounds={playgroundsList} />
       </main>
       <footer>
 
