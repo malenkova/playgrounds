@@ -6,6 +6,9 @@
     background-color: #5A0;
     cursor: pointer;
     z-index: 10;
+    color: white;
+    font-weight: 600;
+    padding: 1px 0 0 5px;
 }
 
 .map-info {

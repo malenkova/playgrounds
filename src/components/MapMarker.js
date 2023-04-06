@@ -1,12 +1,12 @@
 import MapInfo from "./MapInfo";
 
-const MapMarker = ({ show = false, place }) => {
+const MapMarker = ({ show = false, place, i }) => {
     return (
         <>
-            <div className="map-marker"></div>
+            <div className="map-marker">{i + 1}</div>
             {show && <MapInfo place={place} />}
         </>
     );
-}
+};
 
 export default MapMarker;
