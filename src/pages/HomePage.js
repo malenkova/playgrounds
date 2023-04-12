@@ -14,13 +14,9 @@ const HomePage = () => {
     const [playgrounds, setPlaygrounds] = useState(playgroundsList);
 
     const filterList = (filter) => {
-        console.log("filterList", filter);
-        console.log(filterFields);
         let list = playgroundsList.filter((place) => {
             for (let field_name in filterFields) {
                 const field = filterFields[field_name];
-                console.log(field);
-                console.log(`field_name=${field_name}`);
                 if (field.name in filter) {
                     if (field.type === FILTER_FIELD_BOOLEAN) {
                         if (filter[field_name] === true) {
@@ -49,12 +45,15 @@ const HomePage = () => {
     };
 
     return (
-        <>
-            <h1>Home page</h1>
-            <Filter onSelectFilter={filterList} />
-            <Map playgrounds={playgrounds} />
-            <PlaygroundsList playgrounds={playgrounds} />
-        </>
+        <div className="flex-grow container mx-auto mt-4 flex flex-col md:flex-row bg-white">
+            <div className="w-full md:w-1/4 p-4">
+                <Filter onSelectFilter={filterList} />
+            </div>
+            <div className="w-full md:w-3/4 p-4">
+                <Map playgrounds={playgrounds} />
+                <PlaygroundsList playgrounds={playgrounds} />
+            </div>
+        </div>
     );
 };
 

@@ -1,6 +1,5 @@
 import GoogleMapReact from "google-map-react";
 import MapMarker from "./MapMarker";
-import "./Map.css";
 import { useState } from "react";
 
 const Map = ({ playgrounds = [], update = false }) => {
@@ -32,7 +31,7 @@ const Map = ({ playgrounds = [], update = false }) => {
     };
 
     return (
-        <div style={{ height: "500px", width: "500px" }}>
+        <div style={{ height: "500px", width: "100%" }}>
             <GoogleMapReact
                 bootstrapURLKeys={{
                     key: "AIzaSyApvFYldWTB_D9x2IOptP11JL-n9PjxXcM",
