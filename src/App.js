@@ -35,7 +35,7 @@ function App() {
                                 filter[field_name][v.value] === true
                             ) {
                                 any = false;
-                                if (place.filter[field_name] === v.value)
+                                if (place.filter[field_name].includes(v.value))
                                     found = true;
                             }
                         }
