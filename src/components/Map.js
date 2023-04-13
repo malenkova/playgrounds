@@ -1,17 +1,34 @@
 import GoogleMapReact from "google-map-react";
 import MapMarker from "./MapMarker";
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 
-const Map = ({ playgrounds = [], update = false }) => {
+const Map = ({ playgrounds = [] }) => {
+    const [map, setMap] = useState(null);
+    const onLoad = useCallback((map) => setMap(map), []);
+
     const defaultProps = {
         center: {
-            lat: 30.5052,
-            lng: -97.8203,
+            lat: 30.49,
+            lng: -97.82,
         },
         zoom: 13,
     };
 
     const [date, setDate] = useState(Date.now());
+
+    // change scale/position when playgrounds list changes
+    useEffect(() => {
+        if (map) {
+            const bounds = new window.google.maps.LatLngBounds();
+            playgrounds.forEach((marker) => {
+                bounds.extend({
+                    lat: marker.geometry.location.lat,
+                    lng: marker.geometry.location.lng,
+                });
+            });
+            map.fitBounds(bounds);
+        }
+    }, [map, playgrounds]);
 
     // Hide info about all playgrounds
     const onMapClick = () => {
@@ -31,15 +48,21 @@ const Map = ({ playgrounds = [], update = false }) => {
     };
 
     return (
-        <div style={{ height: "500px", width: "100%" }}>
+        <div style={{ height: "500px", width: "100%", overflow: "hidden" }}>
             <GoogleMapReact
                 bootstrapURLKeys={{
                     key: "AIzaSyApvFYldWTB_D9x2IOptP11JL-n9PjxXcM",
                 }}
                 defaultCenter={defaultProps.center}
                 defaultZoom={defaultProps.zoom}
+                onGoogleApiLoaded={({ map, maps }) => {
+                    onLoad(map);
+                }}
+                onLoad={onLoad}
                 onChildClick={onChildClickCallback}
                 onClick={onMapClick}
+                yesIWantToUseGoogleMapApiInternals={true}
+                resetBoundsOnResize={true}
             >
                 {playgrounds.map((place, i) => (
                     <MapMarker
