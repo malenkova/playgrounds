@@ -12,6 +12,7 @@ const Map = ({ playgrounds = [] }) => {
             lng: -97.82,
         },
         zoom: 13,
+        maxZoom: 16,
     };
 
     const [date, setDate] = useState(Date.now());
@@ -47,6 +48,12 @@ const Map = ({ playgrounds = [] }) => {
         setDate(Date.now()); // re-render markers
     };
 
+    function createMapOptions(maps) {
+        return {
+            maxZoom: defaultProps.maxZoom,
+        };
+    }
+
     return (
         <div style={{ height: "500px", width: "100%", overflow: "hidden" }}>
             <GoogleMapReact
@@ -55,6 +62,7 @@ const Map = ({ playgrounds = [] }) => {
                 }}
                 defaultCenter={defaultProps.center}
                 defaultZoom={defaultProps.zoom}
+                options={createMapOptions}
                 onGoogleApiLoaded={({ map, maps }) => {
                     onLoad(map);
                 }}
