@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Filter from "../components/Filter";
 import Map from "../components/Map";
 import PlaygroundsList from "../components/PlaygroundsList";
@@ -9,9 +9,17 @@ import {
     FILTER_FIELD_BOOLEAN,
     FILTER_FIELD_MULTI_CHECKBOX,
 } from "../components/filterFields";
+import Pagination from "rc-pagination";
+
+const PAGE_SIZE = 5;
 
 const HomePage = () => {
-    const [playgrounds, setPlaygrounds] = useState(playgroundsList);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalCount, setTotalCount] = useState(playgroundsList.length);
+    const [allFilteredPlaygrounds, setAllFilteredPlaygrounds] =
+        useState(playgroundsList);
+    const [paginatedPlaygrounds, setPaginatedPlaygrounds] =
+        useState(playgroundsList);
 
     const filterList = (filter) => {
         let list = playgroundsList.filter((place) => {
@@ -41,8 +49,26 @@ const HomePage = () => {
             }
             return true;
         });
-        setPlaygrounds(list);
+        setTotalCount(list.length);
+        setAllFilteredPlaygrounds(list);
+        setCurrentPage(1);
     };
+
+    const PaginationChange = useCallback(
+        (page) => {
+            setCurrentPage(page);
+            let list = allFilteredPlaygrounds.slice(
+                (page - 1) * PAGE_SIZE,
+                page * PAGE_SIZE
+            );
+            setPaginatedPlaygrounds(list);
+        },
+        [allFilteredPlaygrounds]
+    );
+
+    useEffect(() => {
+        PaginationChange(currentPage);
+    }, [PaginationChange, currentPage]);
 
     return (
         <div className="flex-grow container mx-auto mt-4 flex flex-col md:flex-row bg-white">
@@ -50,8 +76,26 @@ const HomePage = () => {
                 <Filter onSelectFilter={filterList} />
             </div>
             <div className="w-full md:w-3/4 p-4">
-                <Map playgrounds={playgrounds} />
-                <PlaygroundsList playgrounds={playgrounds} />
+                <Map
+                    playgrounds={paginatedPlaygrounds}
+                    pageSize={PAGE_SIZE}
+                    currentPage={currentPage}
+                />
+                <PlaygroundsList
+                    playgrounds={paginatedPlaygrounds}
+                    pageSize={PAGE_SIZE}
+                    currentPage={currentPage}
+                />
+                <Pagination
+                    total={totalCount}
+                    pageSize={PAGE_SIZE}
+                    hideOnSinglePage={true}
+                    showTotal={(total, range) =>
+                        `Showing ${range[0]}-${range[1]} of ${total}`
+                    }
+                    current={currentPage}
+                    onChange={PaginationChange}
+                />
             </div>
         </div>
     );

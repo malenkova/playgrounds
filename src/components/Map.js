@@ -2,7 +2,7 @@ import GoogleMapReact from "google-map-react";
 import MapMarker from "./MapMarker";
 import { useState, useCallback, useEffect } from "react";
 
-const Map = ({ playgrounds = [] }) => {
+const Map = ({ playgrounds = [], currentPage, pageSize }) => {
     const [map, setMap] = useState(null);
     const onLoad = useCallback((map) => setMap(map), []);
 
@@ -74,7 +74,7 @@ const Map = ({ playgrounds = [] }) => {
             >
                 {playgrounds.map((place, i) => (
                     <MapMarker
-                        i={i}
+                        label={(currentPage - 1) * pageSize + i + 1}
                         key={place.id}
                         lat={place.geometry.location.lat}
                         lng={place.geometry.location.lng}
