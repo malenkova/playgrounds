@@ -75,12 +75,7 @@ const HomePage = () => {
             <div className="w-full md:w-1/4 p-4">
                 <Filter onSelectFilter={filterList} />
             </div>
-            <div className="w-full md:w-3/4 p-4">
-                <Map
-                    playgrounds={paginatedPlaygrounds}
-                    pageSize={PAGE_SIZE}
-                    currentPage={currentPage}
-                />
+            <div className="w-full md:w-1/2 p-4">
                 <PlaygroundsList
                     playgrounds={paginatedPlaygrounds}
                     pageSize={PAGE_SIZE}
@@ -95,6 +90,13 @@ const HomePage = () => {
                     }
                     current={currentPage}
                     onChange={PaginationChange}
+                />
+            </div>
+            <div className="w-full md:w-1/2 p-4">
+                <Map
+                    playgrounds={paginatedPlaygrounds}
+                    pageSize={PAGE_SIZE}
+                    currentPage={currentPage}
                 />
             </div>
         </div>
