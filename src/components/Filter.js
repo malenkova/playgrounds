@@ -106,6 +106,15 @@ const Filter = ({ onSelectFilter }) => {
                 <button className="filter-button mt-1" onClick={sendForm}>
                     Apply Filter
                 </button>
+                <button
+                    className="filter-button mt-1"
+                    onClick={(e) => {
+                        setFilter(initFilter);
+                        onSelectFilter(initFilter);
+                    }}
+                >
+                    Clear Filter
+                </button>
             </div>
         </>
     );
