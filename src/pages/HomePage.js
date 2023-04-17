@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import Filter from "../components/Filter";
 import Map from "../components/Map";
 import PlaygroundsList from "../components/PlaygroundsList";
@@ -18,57 +18,57 @@ const HomePage = () => {
     const [totalCount, setTotalCount] = useState(playgroundsList.length);
     const [allFilteredPlaygrounds, setAllFilteredPlaygrounds] =
         useState(playgroundsList);
-    const [paginatedPlaygrounds, setPaginatedPlaygrounds] =
-        useState(playgroundsList);
-
-    const filterList = (filter) => {
-        let list = playgroundsList.filter((place) => {
-            for (let field_name in filterFields) {
-                const field = filterFields[field_name];
-                if (field.name in filter) {
-                    if (field.type === FILTER_FIELD_BOOLEAN) {
-                        if (filter[field_name] === true) {
-                            if (place.filter[field_name] !== true) return false;
-                        }
-                    } else if (field.type === FILTER_FIELD_MULTI_CHECKBOX) {
-                        let found = false;
-                        let any = true;
-                        for (let v of field.values) {
-                            if (
-                                v.value in filter[field_name] &&
-                                filter[field_name][v.value] === true
-                            ) {
-                                any = false;
-                                if (place.filter[field_name].includes(v.value))
-                                    found = true;
-                            }
-                        }
-                        if (!found && !any) return false;
-                    }
-                }
-            }
-            return true;
-        });
-        setTotalCount(list.length);
-        setAllFilteredPlaygrounds(list);
-        setCurrentPage(1);
-    };
-
-    const PaginationChange = useCallback(
-        (page) => {
-            setCurrentPage(page);
-            let list = allFilteredPlaygrounds.slice(
-                (page - 1) * PAGE_SIZE,
-                page * PAGE_SIZE
-            );
-            setPaginatedPlaygrounds(list);
-        },
-        [allFilteredPlaygrounds]
+    const [paginatedPlaygrounds, setPaginatedPlaygrounds] = useState(
+        playgroundsList.slice(0, PAGE_SIZE)
     );
 
-    useEffect(() => {
-        PaginationChange(currentPage);
-    }, [PaginationChange, currentPage]);
+    const filterList = (filter) => {
+        let list = playgroundsList;
+        if (filter !== null) {
+            list = playgroundsList.filter((place) => {
+                for (let field_name in filterFields) {
+                    const field = filterFields[field_name];
+                    if (field.name in filter) {
+                        if (field.type === FILTER_FIELD_BOOLEAN) {
+                            if (filter[field_name] === true) {
+                                if (place.filter[field_name] !== true)
+                                    return false;
+                            }
+                        } else if (field.type === FILTER_FIELD_MULTI_CHECKBOX) {
+                            let found = false;
+                            let any = true;
+                            for (let v of field.values) {
+                                if (
+                                    v.value in filter[field_name] &&
+                                    filter[field_name][v.value] === true
+                                ) {
+                                    any = false;
+                                    if (
+                                        place.filter[field_name].includes(
+                                            v.value
+                                        )
+                                    )
+                                        found = true;
+                                }
+                            }
+                            if (!found && !any) return false;
+                        }
+                    }
+                }
+                return true;
+            });
+        }
+        setTotalCount(list.length);
+        setAllFilteredPlaygrounds(list);
+        PaginationChange(1, PAGE_SIZE, list);
+    };
+
+    const PaginationChange = (page, pageSize, list = null) => {
+        if (list === null) list = allFilteredPlaygrounds;
+        setCurrentPage(page);
+        list = list.slice((page - 1) * pageSize, page * pageSize);
+        setPaginatedPlaygrounds(list);
+    };
 
     return (
         <div className="flex-grow container mx-auto mt-4 flex flex-col md:flex-row bg-white">

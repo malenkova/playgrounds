@@ -20,10 +20,6 @@ const Filter = ({ onSelectFilter }) => {
     const [filter, setFilter] = useState(initFilter);
     const [showFilter, setShowFilter] = useState(false);
 
-    const sendForm = () => {
-        onSelectFilter(filter);
-    };
-
     return (
         <>
             <button
@@ -103,7 +99,10 @@ const Filter = ({ onSelectFilter }) => {
                     }
                     return <></>;
                 })}
-                <button className="filter-button mt-1" onClick={sendForm}>
+                <button
+                    className="filter-button mt-1"
+                    onClick={(e) => onSelectFilter(filter)}
+                >
                     Apply Filter
                 </button>
                 <button
