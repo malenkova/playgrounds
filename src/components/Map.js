@@ -7,6 +7,31 @@ import {
 import { useState, useCallback, useEffect } from "react";
 import MapInfo from "./MapInfo";
 
+// size of map
+const containerStyle = {
+    width: "100%",
+    height: "500px",
+};
+
+// hide all points of interest
+let myStyles = [
+    {
+        featureType: "poi",
+        elementType: "labels",
+        stylers: [{ visibility: "off" }],
+    },
+];
+
+const defaultProps = {
+    center: {
+        lat: 30.49,
+        lng: -97.82,
+    },
+    zoom: 13,
+    maxZoom: 16,
+    styles: myStyles,
+};
+
 const Map = ({ playgrounds = [], currentPage, pageSize }) => {
     const [map, setMap] = useState(null);
     const [selectedPlace, setSelectedPlace] = useState(null);
@@ -17,23 +42,10 @@ const Map = ({ playgrounds = [], currentPage, pageSize }) => {
 
     const onLoad = useCallback((map) => setMap(map), []);
 
-    const containerStyle = {
-        width: "100%",
-        height: "500px",
-    };
-
-    const defaultProps = {
-        center: {
-            lat: 30.49,
-            lng: -97.82,
-        },
-        zoom: 13,
-        maxZoom: 16,
-    };
-
     // change scale/position when playgrounds list changes
     useEffect(() => {
         if (map) {
+            setSelectedPlace(null);
             const bounds = new window.google.maps.LatLngBounds();
             playgrounds.forEach((marker) => {
                 bounds.extend({
@@ -41,7 +53,7 @@ const Map = ({ playgrounds = [], currentPage, pageSize }) => {
                     lng: marker.geometry.location.lng,
                 });
             });
-            map.fitBounds(bounds);
+            map.fitBounds(bounds, { right: 50, left: 50, top: 50, bottom: 50 });
         }
     }, [map, playgrounds]);
 
@@ -50,10 +62,7 @@ const Map = ({ playgrounds = [], currentPage, pageSize }) => {
     }
 
     return (
-        <div
-            id="map_container"
-            style={{ height: "500px", width: "100%", overflow: "hidden" }}
-        >
+        <div id="map_container" style={{ height: "500px", width: "100%" }}>
             <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={defaultProps.center}
@@ -62,30 +71,28 @@ const Map = ({ playgrounds = [], currentPage, pageSize }) => {
                 onLoad={onLoad}
             >
                 {playgrounds.map((place, i) => {
-                    const marker_div = document.createElement("div");
-
-                    marker_div.className = "price-tag";
-                    marker_div.textContent = "$2.5M";
-
                     return (
                         <Marker
                             key={place.id}
                             position={place.geometry.location}
-                            content={marker_div}
                             onClick={(props, marker) => {
                                 setSelectedPlace(place);
                             }}
-                            label={(
-                                (currentPage - 1) * pageSize +
-                                i +
-                                1
-                            ).toString()}
+                            label={{
+                                text: (
+                                    (currentPage - 1) * pageSize +
+                                    i +
+                                    1
+                                ).toString(),
+                                color: "#fff",
+                            }}
                         />
                     );
                 })}
                 {selectedPlace ? (
                     <InfoWindow
                         position={selectedPlace.geometry.location}
+                        options={{ disableAutoPan: false }}
                         onCloseClick={() => {
                             setSelectedPlace(null);
                         }}

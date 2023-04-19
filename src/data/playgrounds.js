@@ -19,7 +19,6 @@ const playgroundsList = [
             surface: ["rubber"],
             structure: ["small", "big"],
         },
-        show: false,
     },
     {
         id: "20",
@@ -41,7 +40,6 @@ const playgroundsList = [
             surface: ["mulch"],
             structure: ["small", "big"],
         },
-        show: false,
     },
     {
         id: "21",
@@ -63,7 +61,6 @@ const playgroundsList = [
             surface: ["mulch"],
             structure: ["small", "big"],
         },
-        show: false,
     },
     {
         id: "22",
@@ -85,7 +82,6 @@ const playgroundsList = [
             surface: ["mulch"],
             structure: ["small"],
         },
-        show: false,
     },
     {
         id: "23",
@@ -107,7 +103,6 @@ const playgroundsList = [
             surface: ["mulch"],
             structure: ["small", "big"],
         },
-        show: false,
     },
     {
         id: "24",
@@ -129,7 +124,6 @@ const playgroundsList = [
             surface: ["mulch"],
             structure: ["big"],
         },
-        show: false,
     },
     {
         id: "25",
@@ -151,7 +145,6 @@ const playgroundsList = [
             surface: ["mulch"],
             structure: ["small"],
         },
-        show: false,
     },
 ];
 
