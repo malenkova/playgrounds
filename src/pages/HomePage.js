@@ -76,28 +76,38 @@ const HomePage = () => {
                 <Filter onSelectFilter={filterList} />
             </div>
             <div className="w-full md:w-1/2 p-4">
-                <PlaygroundsList
-                    playgrounds={paginatedPlaygrounds}
-                    pageSize={PAGE_SIZE}
-                    currentPage={currentPage}
-                />
-                <Pagination
-                    total={totalCount}
-                    pageSize={PAGE_SIZE}
-                    hideOnSinglePage={true}
-                    showTotal={(total, range) =>
-                        `Showing ${range[0]}-${range[1]} of ${total}`
-                    }
-                    current={currentPage}
-                    onChange={PaginationChange}
-                />
+                {paginatedPlaygrounds.length ? (
+                    <>
+                        <PlaygroundsList
+                            playgrounds={paginatedPlaygrounds}
+                            pageSize={PAGE_SIZE}
+                            currentPage={currentPage}
+                        />
+                        <Pagination
+                            total={totalCount}
+                            pageSize={PAGE_SIZE}
+                            hideOnSinglePage={true}
+                            showTotal={(total, range) =>
+                                `Showing ${range[0]}-${range[1]} of ${total}`
+                            }
+                            current={currentPage}
+                            onChange={PaginationChange}
+                        />
+                    </>
+                ) : (
+                    "Playgrounds not found."
+                )}
             </div>
             <div className="w-full md:w-1/2 p-4">
-                <Map
-                    playgrounds={paginatedPlaygrounds}
-                    pageSize={PAGE_SIZE}
-                    currentPage={currentPage}
-                />
+                {paginatedPlaygrounds.length ? (
+                    <Map
+                        playgrounds={paginatedPlaygrounds}
+                        pageSize={PAGE_SIZE}
+                        currentPage={currentPage}
+                    />
+                ) : (
+                    ""
+                )}
             </div>
         </div>
     );
