@@ -1,10 +1,26 @@
-import GoogleMapReact from "google-map-react";
-import MapMarker from "./MapMarker";
+import {
+    GoogleMap,
+    InfoWindow,
+    Marker,
+    useJsApiLoader,
+} from "@react-google-maps/api";
 import { useState, useCallback, useEffect } from "react";
+import MapInfo from "./MapInfo";
 
 const Map = ({ playgrounds = [], currentPage, pageSize }) => {
     const [map, setMap] = useState(null);
+    const [selectedPlace, setSelectedPlace] = useState(null);
+
+    const { isLoaded } = useJsApiLoader({
+        googleMapsApiKey: "AIzaSyApvFYldWTB_D9x2IOptP11JL-n9PjxXcM",
+    });
+
     const onLoad = useCallback((map) => setMap(map), []);
+
+    const containerStyle = {
+        width: "100%",
+        height: "500px",
+    };
 
     const defaultProps = {
         center: {
@@ -14,8 +30,6 @@ const Map = ({ playgrounds = [], currentPage, pageSize }) => {
         zoom: 13,
         maxZoom: 16,
     };
-
-    const [date, setDate] = useState(Date.now());
 
     // change scale/position when playgrounds list changes
     useEffect(() => {
@@ -31,59 +45,55 @@ const Map = ({ playgrounds = [], currentPage, pageSize }) => {
         }
     }, [map, playgrounds]);
 
-    // Hide info about all playgrounds
-    const onMapClick = () => {
-        playgrounds.forEach((place) => {
-            place.show = false;
-        });
-        setDate(Date.now()); // re-render markers
-    };
-
-    // Show info about the playground that was clicked
-    const onChildClickCallback = (key) => {
-        playgrounds.forEach((place) => {
-            if (place.id === key) place.show = true;
-            else place.show = false;
-        });
-        setDate(Date.now()); // re-render markers
-    };
-
-    function createMapOptions(maps) {
-        return {
-            maxZoom: defaultProps.maxZoom,
-        };
+    if (!isLoaded) {
+        return <></>;
     }
 
     return (
-        <div style={{ height: "500px", width: "100%", overflow: "hidden" }}>
-            <GoogleMapReact
-                bootstrapURLKeys={{
-                    key: "AIzaSyApvFYldWTB_D9x2IOptP11JL-n9PjxXcM",
-                }}
-                defaultCenter={defaultProps.center}
-                defaultZoom={defaultProps.zoom}
-                options={createMapOptions}
-                onGoogleApiLoaded={({ map, maps }) => {
-                    onLoad(map);
-                }}
+        <div
+            id="map_container"
+            style={{ height: "500px", width: "100%", overflow: "hidden" }}
+        >
+            <GoogleMap
+                mapContainerStyle={containerStyle}
+                center={defaultProps.center}
+                zoom={defaultProps.zoom}
+                options={defaultProps}
                 onLoad={onLoad}
-                onChildClick={onChildClickCallback}
-                onClick={onMapClick}
-                yesIWantToUseGoogleMapApiInternals={true}
-                resetBoundsOnResize={true}
             >
-                {playgrounds.map((place, i) => (
-                    <MapMarker
-                        label={(currentPage - 1) * pageSize + i + 1}
-                        key={place.id}
-                        lat={place.geometry.location.lat}
-                        lng={place.geometry.location.lng}
-                        show={place.show}
-                        place={place}
-                        update={date}
-                    />
-                ))}
-            </GoogleMapReact>
+                {playgrounds.map((place, i) => {
+                    const marker_div = document.createElement("div");
+
+                    marker_div.className = "price-tag";
+                    marker_div.textContent = "$2.5M";
+
+                    return (
+                        <Marker
+                            key={place.id}
+                            position={place.geometry.location}
+                            content={marker_div}
+                            onClick={(props, marker) => {
+                                setSelectedPlace(place);
+                            }}
+                            label={(
+                                (currentPage - 1) * pageSize +
+                                i +
+                                1
+                            ).toString()}
+                        />
+                    );
+                })}
+                {selectedPlace ? (
+                    <InfoWindow
+                        position={selectedPlace.geometry.location}
+                        onCloseClick={() => {
+                            setSelectedPlace(null);
+                        }}
+                    >
+                        <MapInfo place={selectedPlace} />
+                    </InfoWindow>
+                ) : null}
+            </GoogleMap>
         </div>
     );
 };
