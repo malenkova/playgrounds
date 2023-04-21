@@ -8,6 +8,8 @@ import {
     filterFields,
     FILTER_FIELD_BOOLEAN,
     FILTER_FIELD_MULTI_CHECKBOX,
+    FILTER_FIELD_RADIO,
+    RADIO_DEFAULT_VALUE,
 } from "../components/filterFields";
 import Pagination from "rc-pagination";
 
@@ -35,23 +37,28 @@ const HomePage = () => {
                                     return false;
                             }
                         } else if (field.type === FILTER_FIELD_MULTI_CHECKBOX) {
-                            let found = false;
-                            let any = true;
                             for (let v of field.values) {
                                 if (
                                     v.value in filter[field_name] &&
                                     filter[field_name][v.value] === true
                                 ) {
-                                    any = false;
                                     if (
-                                        place.filter[field_name].includes(
+                                        !place.filter[field_name].includes(
                                             v.value
                                         )
                                     )
-                                        found = true;
+                                        return false;
                                 }
                             }
-                            if (!found && !any) return false;
+                        } else if (field.type === FILTER_FIELD_RADIO) {
+                            if (
+                                filter[field_name] !== RADIO_DEFAULT_VALUE &&
+                                !place.filter[field_name].includes(
+                                    filter[field_name]
+                                )
+                            ) {
+                                return false;
+                            }
                         }
                     }
                 }

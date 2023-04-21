@@ -146,6 +146,27 @@ const playgroundsList = [
             structure: ["small"],
         },
     },
+    {
+        id: "26",
+        name: "Anderson Mill West Park",
+        address: "2900 El Salido Pkwy, Cedar Park, TX 78613",
+        geometry: {
+            location: {
+                lat: 30.466191014719293,
+                lng: -97.83738677549229,
+            },
+        },
+        filter: {
+            parking: true,
+            restroom: true,
+            trail: false,
+            water: false,
+            sand: true,
+            sp_needs_swings: false,
+            surface: ["mulch", "rubber"],
+            structure: ["small", "big"],
+        },
+    },
 ];
 
 export default playgroundsList;

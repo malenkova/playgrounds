@@ -1,5 +1,7 @@
 const FILTER_FIELD_BOOLEAN = "boolean";
 const FILTER_FIELD_MULTI_CHECKBOX = "multi-checkbox";
+const FILTER_FIELD_RADIO = "radio";
+const RADIO_DEFAULT_VALUE = "any";
 
 const filterFields = {
     parking: {
@@ -35,8 +37,9 @@ const filterFields = {
     surface: {
         name: "surface",
         title: "Surface",
-        type: FILTER_FIELD_MULTI_CHECKBOX,
+        type: FILTER_FIELD_RADIO,
         values: [
+            { title: "Any", value: RADIO_DEFAULT_VALUE },
             { title: "Rubber", value: "rubber" },
             { title: "Gravel", value: "gravel" },
             { title: "Mulch", value: "mulch" },
@@ -53,4 +56,10 @@ const filterFields = {
     },
 };
 
-export { filterFields, FILTER_FIELD_BOOLEAN, FILTER_FIELD_MULTI_CHECKBOX };
+export {
+    filterFields,
+    FILTER_FIELD_BOOLEAN,
+    FILTER_FIELD_MULTI_CHECKBOX,
+    FILTER_FIELD_RADIO,
+    RADIO_DEFAULT_VALUE,
+};
