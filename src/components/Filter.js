@@ -32,6 +32,7 @@ const Filter = ({ onSelectFilter }) => {
             >
                 Filter
             </button>
+            <h2 className="text-lg font-bold mt-1">Features</h2>
             <div
                 id="filter-container"
                 className={
@@ -40,7 +41,6 @@ const Filter = ({ onSelectFilter }) => {
                         : "hidden md:block"
                 }
             >
-                <h2 className="text-lg font-bold mt-1">Features</h2>
                 {Object.values(filterFields).map((f) => {
                     if (f.type === FILTER_FIELD_BOOLEAN) {
                         let id = f.name + "_field";
@@ -52,10 +52,12 @@ const Filter = ({ onSelectFilter }) => {
                                     type="checkbox"
                                     checked={filter[f.name]}
                                     onChange={(e) => {
-                                        setFilter({
+                                        let new_filter = {
                                             ...filter,
                                             [f.name]: e.target.checked,
-                                        });
+                                        };
+                                        setFilter(new_filter);
+                                        onSelectFilter(new_filter);
                                     }}
                                 />
                                 <label htmlFor={id}>{f.title}</label>
@@ -82,7 +84,7 @@ const Filter = ({ onSelectFilter }) => {
                                                     filter[f.name][v.value]
                                                 }
                                                 onChange={(e) => {
-                                                    setFilter({
+                                                    let new_filter = {
                                                         ...filter,
                                                         [f.name]: {
                                                             ...filter[f.name],
@@ -90,7 +92,9 @@ const Filter = ({ onSelectFilter }) => {
                                                                 e.target
                                                                     .checked,
                                                         },
-                                                    });
+                                                    };
+                                                    setFilter(new_filter);
+                                                    onSelectFilter(new_filter);
                                                 }}
                                             />
                                             <label htmlFor={id}>
@@ -124,10 +128,12 @@ const Filter = ({ onSelectFilter }) => {
                                                     filter[f.name] === v.value
                                                 }
                                                 onChange={(e) => {
-                                                    setFilter({
+                                                    let new_filter = {
                                                         ...filter,
                                                         [f.name]: v.value,
-                                                    });
+                                                    };
+                                                    setFilter(new_filter);
+                                                    onSelectFilter(new_filter);
                                                 }}
                                             />
                                             <label htmlFor={id}>
@@ -142,8 +148,8 @@ const Filter = ({ onSelectFilter }) => {
                     return <></>;
                 })}
                 <button
-                    className="filter-button mt-1"
-                    onClick={(e) => onSelectFilter(filter)}
+                    className="filter-button mt-1 mr-2 md:hidden"
+                    onClick={(e) => setShowFilter(!showFilter)}
                 >
                     Apply Filter
                 </button>
