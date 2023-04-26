@@ -42,7 +42,7 @@ const Map = ({
     const [selectedPlace, setSelectedPlace] = useState(null);
 
     const { isLoaded } = useJsApiLoader({
-        googleMapsApiKey: "AIzaSyApvFYldWTB_D9x2IOptP11JL-n9PjxXcM",
+        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     });
 
     const onLoad = useCallback((map) => setMap(map), []);
