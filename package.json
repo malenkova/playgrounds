@@ -17,7 +17,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "NODE_ENV=test npx mocha \"src/**/*.test.js\" --require @babel/register --require ignore-styles --recursive",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -39,6 +39,15 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.21.4",
+    "@babel/plugin-transform-modules-commonjs": "^7.21.2",
+    "@babel/preset-env": "^7.21.4",
+    "@babel/register": "^7.21.0",
+    "babel-plugin-inline-react-svg": "^2.0.2",
+    "babel-preset-react-app-babel-7": "^4.0.2-0",
+    "chai": "^4.3.7",
+    "ignore-styles": "^5.0.1",
+    "mocha": "^10.2.0",
     "tailwindcss": "^3.3.1"
   }
 }
