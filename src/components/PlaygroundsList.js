@@ -1,4 +1,9 @@
-const PlaygroundsList = ({ playgrounds = [], currentPage, pageSize }) => {
+const PlaygroundsList = ({
+    playgrounds = [],
+    currentPage,
+    pageSize,
+    onMouseOverPlaygroundInList,
+}) => {
     return (
         <>
             <ul>
@@ -8,6 +13,10 @@ const PlaygroundsList = ({ playgrounds = [], currentPage, pageSize }) => {
                         className="flex border border-gray-200 rounded-md mb-3 px-3 py-2 shadow-sm 
                         hover:cursor-pointer
                         hover:border-gray-400"
+                        onMouseEnter={(e) => {
+                            onMouseOverPlaygroundInList(place);
+                            e.stopPropagation();
+                        }}
                     >
                         {place.image ? (
                             <img src="{place.image}" alt={place.name}></img>

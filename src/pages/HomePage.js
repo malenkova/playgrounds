@@ -23,6 +23,7 @@ const HomePage = () => {
     const [paginatedPlaygrounds, setPaginatedPlaygrounds] = useState(
         playgroundsList.slice(0, PAGE_SIZE)
     );
+    const [hoverPlace, setHoverPlace] = useState(null);
 
     const filterList = (filter) => {
         let list = playgroundsList;
@@ -77,6 +78,10 @@ const HomePage = () => {
         setPaginatedPlaygrounds(list);
     };
 
+    const onMouseOverPlaygroundInList = (place) => {
+        setHoverPlace(place);
+    };
+
     return (
         <div className="flex-grow container mx-auto mt-4 flex flex-col md:flex-row bg-white">
             <div className="w-full md:w-1/4 p-4">
@@ -89,6 +94,9 @@ const HomePage = () => {
                             playgrounds={paginatedPlaygrounds}
                             pageSize={PAGE_SIZE}
                             currentPage={currentPage}
+                            onMouseOverPlaygroundInList={
+                                onMouseOverPlaygroundInList
+                            }
                         />
                         <Pagination
                             total={totalCount}
@@ -111,6 +119,7 @@ const HomePage = () => {
                         playgrounds={paginatedPlaygrounds}
                         pageSize={PAGE_SIZE}
                         currentPage={currentPage}
+                        hoverPlace={hoverPlace}
                     />
                 ) : (
                     ""
