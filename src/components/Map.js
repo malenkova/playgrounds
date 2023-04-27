@@ -37,6 +37,7 @@ const Map = ({
     currentPage,
     pageSize,
     hoverPlace = null,
+    onMouseOverMarker,
 }) => {
     const [map, setMap] = useState(null);
     const [selectedPlace, setSelectedPlace] = useState(null);
@@ -68,7 +69,15 @@ const Map = ({
 
     let pinSVGFilled =
         "M 12,2 C 8.1340068,2 5,5.1340068 5,9 c 0,5.25 7,13 7,13 0,0 7,-7.75 7,-13 0,-3.8659932 -3.134007,-7 -7,-7 z";
-
+    let markerImage = {
+        path: pinSVGFilled,
+        anchor: new window.google.maps.Point(10, 23),
+        fillOpacity: 1,
+        strokeWeight: 2,
+        strokeColor: "white",
+        scale: 2,
+        labelOrigin: new window.google.maps.Point(12, 9),
+    };
     return (
         <div id="map_container" style={{ height: "500px", width: "100%" }}>
             <GoogleMap
@@ -79,18 +88,12 @@ const Map = ({
                 onLoad={onLoad}
             >
                 {playgrounds.map((place, i) => {
-                    let markerImage = {
-                        path: pinSVGFilled,
-                        anchor: new window.google.maps.Point(10, 23),
-                        fillOpacity: 1,
+                    markerImage = {
+                        ...markerImage,
                         fillColor:
                             hoverPlace && place.id === hoverPlace.id
                                 ? "red"
                                 : "green",
-                        strokeWeight: 2,
-                        strokeColor: "white",
-                        scale: 2,
-                        labelOrigin: new window.google.maps.Point(12, 9),
                     };
                     return (
                         <Marker
@@ -99,6 +102,7 @@ const Map = ({
                             onClick={(props, marker) => {
                                 setSelectedPlace(place);
                             }}
+                            onMouseOver={() => onMouseOverMarker(place)}
                             icon={markerImage}
                             label={{
                                 text: (

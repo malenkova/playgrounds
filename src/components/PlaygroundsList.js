@@ -2,6 +2,7 @@ const PlaygroundsList = ({
     playgrounds = [],
     currentPage,
     pageSize,
+    hoverPlace = null,
     onMouseOverPlaygroundInList,
 }) => {
     return (
@@ -10,9 +11,15 @@ const PlaygroundsList = ({
                 {playgrounds.map((place, i) => (
                     <li
                         key={place.id}
-                        className="flex border border-gray-200 rounded-md mb-3 px-3 py-2 shadow-sm 
+                        className={`${
+                            hoverPlace && hoverPlace.id === place.id
+                                ? "border-gray-400"
+                                : "border-gray-200"
+                        }
+                        rounded-md mb-3 px-3 py-2 shadow-sm 
                         hover:cursor-pointer
-                        hover:border-gray-400"
+                        hover:border-gray-400
+                        flex border`}
                         onMouseEnter={(e) => {
                             onMouseOverPlaygroundInList(place);
                             e.stopPropagation();

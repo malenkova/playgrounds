@@ -33,7 +33,7 @@ const HomePage = () => {
         setPaginatedPlaygrounds(list);
     };
 
-    const onMouseOverPlaygroundInList = (place) => {
+    const onMouseOverPlayground = (place) => {
         setHoverPlace(place);
     };
 
@@ -49,9 +49,8 @@ const HomePage = () => {
                             playgrounds={paginatedPlaygrounds}
                             pageSize={PAGE_SIZE}
                             currentPage={currentPage}
-                            onMouseOverPlaygroundInList={
-                                onMouseOverPlaygroundInList
-                            }
+                            hoverPlace={hoverPlace}
+                            onMouseOverPlaygroundInList={onMouseOverPlayground}
                         />
                         <Pagination
                             total={totalCount}
@@ -75,6 +74,7 @@ const HomePage = () => {
                         pageSize={PAGE_SIZE}
                         currentPage={currentPage}
                         hoverPlace={hoverPlace}
+                        onMouseOverMarker={onMouseOverPlayground}
                     />
                 ) : (
                     ""
