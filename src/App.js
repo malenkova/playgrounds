@@ -11,12 +11,12 @@ function App() {
     return (
         <BrowserRouter>
             <div className="flex flex-col min-h-screen">
-                <header className="bg-green-100 text-white py-4">
+                <header className=" text-my-green py-4 container mx-auto">
                     <div className="container mx-auto">
                         <NavBar />
                     </div>
                 </header>
-                <main>
+                <main className="flex-grow container mx-auto bg-white p-4">
                     <Routes>
                         <Route path="/" element={<HomePage />} />
                         <Route path="/about" element={<AboutPage />} />
@@ -29,12 +29,11 @@ function App() {
                         <Route path="*" element={<NotFoundPage />} />
                     </Routes>
                 </main>
-                <footer className="bg-gray-500 text-white py-4">
+                {/*<footer className="bg-gray-400 text-white py-4 container mx-auto">
                     <div className="container mx-auto">
-                        <h3 className="text-xl font-bold">Footer</h3>
-                        <p>Content goes here</p>
+                        <NavBar />
                     </div>
-                </footer>
+                </footer>*/}
             </div>
         </BrowserRouter>
     );

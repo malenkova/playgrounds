@@ -38,7 +38,7 @@ const HomePage = () => {
     };
 
     return (
-        <div className="flex-grow container mx-auto mt-4 flex flex-col md:flex-row bg-white">
+        <div className="flex-grow container mx-auto flex flex-col md:flex-row">
             <div className="w-full md:w-1/4 p-4">
                 <Filter onSelectFilter={onSelectFilter} />
             </div>
