@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import NavBar from "./NavBar";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import ContactsPage from "./pages/ContactsPage";
@@ -12,7 +13,7 @@ function App() {
             <div className="flex flex-col min-h-screen">
                 <header className="bg-green-100 text-white py-4">
                     <div className="container mx-auto">
-                        <h1>Header</h1>
+                        <NavBar />
                     </div>
                 </header>
                 <main>
