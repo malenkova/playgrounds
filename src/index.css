@@ -7,7 +7,10 @@
         @apply bg-gray-100;
     }
     h1 {
-        @apply text-my-green;
+        @apply text-my-green text-4xl my-3;
+    }
+    h2 {
+        @apply text-3xl my-3;
     }
 }
 

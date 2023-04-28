@@ -7,12 +7,6 @@ import {
 import { useState, useCallback, useEffect } from "react";
 import MapInfo from "./MapInfo";
 
-// size of map
-const containerStyle = {
-    width: "100%",
-    height: "500px",
-};
-
 // hide all points of interest
 let myStyles = [
     {
@@ -37,7 +31,9 @@ const Map = ({
     currentPage,
     pageSize,
     hoverPlace = null,
-    onMouseOverMarker,
+    onMouseOverMarker = null,
+    containerStyle = { width: "100%", height: "500px" },
+    maxZoom = null,
 }) => {
     const [map, setMap] = useState(null);
     const [selectedPlace, setSelectedPlace] = useState(null);
@@ -47,6 +43,8 @@ const Map = ({
     });
 
     const onLoad = useCallback((map) => setMap(map), []);
+
+    if (maxZoom !== null) defaultProps.maxZoom = maxZoom;
 
     // change scale/position when playgrounds list changes
     useEffect(() => {
@@ -79,7 +77,7 @@ const Map = ({
         labelOrigin: new window.google.maps.Point(12, 9),
     };
     return (
-        <div id="map_container" style={{ height: "500px", width: "100%" }}>
+        <div id="map_container">
             <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={defaultProps.center}
@@ -102,7 +100,11 @@ const Map = ({
                             onClick={(props, marker) => {
                                 setSelectedPlace(place);
                             }}
-                            onMouseOver={() => onMouseOverMarker(place)}
+                            onMouseOver={() =>
+                                onMouseOverMarker
+                                    ? onMouseOverMarker(place)
+                                    : ""
+                            }
                             icon={markerImage}
                             label={{
                                 text: (

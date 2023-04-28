@@ -23,7 +23,7 @@ function App() {
                         <Route path="/contacts" element={<ContactsPage />} />
                         <Route path="/playgrounds" element={<HomePage />} />
                         <Route
-                            path="/playgrounds/:id"
+                            path="/playgrounds/:playgroundId"
                             element={<PlaygroundPage />}
                         />
                         <Route path="*" element={<NotFoundPage />} />
