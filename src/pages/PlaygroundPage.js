@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import playgroundsList from "../data/playgrounds";
 import NotFoundPage from "./NotFoundPage";
 import Map from "../components/Map";
+import PhotoGallery from "../components/PhotoGallery";
 import {
     FILTER_FIELD_BOOLEAN,
     FILTER_FIELD_MULTI_CHECKBOX,
@@ -100,18 +101,9 @@ const PlaygroundPage = () => {
                     })}
                 </div>
             </div>
-            <div className="my-6 flex flex-row flex-wrap">
-                {photos.map((photo, i) => (
-                    <img
-                        key={i}
-                        src={`${photo.getUrl({
-                            maxHeight: 200,
-                            maxWidth: 200,
-                        })}`}
-                        alt={playground.name}
-                        className="p-3"
-                    />
-                ))}
+
+            <div className="my-6">
+                {photos.length ? <PhotoGallery photos={photos} /> : ""}
             </div>
         </>
     );
