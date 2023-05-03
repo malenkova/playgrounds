@@ -1,6 +1,7 @@
 const playgroundsList = [
     {
         id: "19",
+        googlePlaceId: "ChIJYbVaHiUtW4YR0ox0PEZ2AsE",
         name: "Lakeline Park",
         address: "1510 Alexis Dr, Cedar Park, TX 78613",
         geometry: {
@@ -22,6 +23,7 @@ const playgroundsList = [
     },
     {
         id: "20",
+        googlePlaceId: "ChIJw5C1VogtW4YRGEce81-ZDI8",
         name: "Milburn Park",
         address: "1901 Sun Chase Blvd, Cedar Park, TX 78613",
         geometry: {
@@ -43,6 +45,7 @@ const playgroundsList = [
     },
     {
         id: "21",
+        googlePlaceId: "ChIJuQnel4AyW4YRENjG_8z-sVE",
         name: "Goldfinch Neighborhood",
         address: "2503 Goldfinch Dr, Cedar Park, TX 78613",
         geometry: {
@@ -64,6 +67,7 @@ const playgroundsList = [
     },
     {
         id: "22",
+        googlePlaceId: "ChIJY92H-DstW4YR_GS97unP-Rc",
         name: "Forest Oaks Park",
         address: "521 S Lynnwood Trail, Cedar Park, TX 78613",
         geometry: {
@@ -85,6 +89,7 @@ const playgroundsList = [
     },
     {
         id: "23",
+        googlePlaceId: "ChIJ66c_tpAtW4YRNjlgyjWBa40",
         name: "Kay Redden Park",
         address: "Buttercup Creek Blvd, Cedar Park, TX 78613",
         geometry: {
@@ -101,11 +106,12 @@ const playgroundsList = [
             sand: false,
             sp_needs_swings: false,
             surface: ["mulch"],
-            structure: ["small", "big"],
+            structure: ["big"],
         },
     },
     {
         id: "24",
+        googlePlaceId: "ChIJ3_u7DYEtW4YRt3Q4G_3LviA",
         name: "Park Place Park",
         address: "101 Vale Dr, Cedar Park, TX 78613",
         geometry: {
@@ -127,6 +133,7 @@ const playgroundsList = [
     },
     {
         id: "25",
+        googlePlaceId: "ChIJXz87ROnSRIYRyf1iU1-LC9I",
         name: "Champion Park",
         address: "3830 Brushy Creek Rd, Cedar Park, TX 78613",
         geometry: {
@@ -148,6 +155,7 @@ const playgroundsList = [
     },
     {
         id: "26",
+        googlePlaceId: "ChIJqYC4IXsyW4YRwjJTsKty0PE",
         name: "Anderson Mill West Park",
         address: "2900 El Salido Pkwy, Cedar Park, TX 78613",
         geometry: {

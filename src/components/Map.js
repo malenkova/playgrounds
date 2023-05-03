@@ -26,6 +26,8 @@ const defaultProps = {
     styles: myStyles,
 };
 
+const libraries = ["places"];
+
 const Map = ({
     playgrounds = [],
     currentPage,
@@ -34,15 +36,20 @@ const Map = ({
     onMouseOverMarker = null,
     containerStyle = { width: "100%", height: "500px" },
     maxZoom = null,
+    onMapLoad = null,
 }) => {
     const [map, setMap] = useState(null);
     const [selectedPlace, setSelectedPlace] = useState(null);
 
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+        libraries: libraries,
     });
 
-    const onLoad = useCallback((map) => setMap(map), []);
+    const onLoad = useCallback((map) => {
+        if (onMapLoad != null) onMapLoad(map);
+        return setMap(map);
+    }, []);
 
     if (maxZoom !== null) defaultProps.maxZoom = maxZoom;
 

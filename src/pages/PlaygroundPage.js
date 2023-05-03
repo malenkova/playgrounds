@@ -8,11 +8,34 @@ import {
     FILTER_FIELD_RADIO,
     filterFields,
 } from "../components/filterFields";
+import { useState } from "react";
 
 const PlaygroundPage = () => {
+    const [photos, setPhotos] = useState([]);
     const { playgroundId } = useParams();
 
     const playground = playgroundsList.find((a) => a.id === playgroundId);
+
+    const onMapLoad = (map) => {
+        if (map && playground.googlePlaceId) {
+            const request = {
+                placeId: playground.googlePlaceId,
+                fields: ["photos"],
+            };
+            const service = new window.google.maps.places.PlacesService(map);
+            service.getDetails(request, (place, status) => {
+                if (
+                    status ===
+                        window.google.maps.places.PlacesServiceStatus.OK &&
+                    place &&
+                    place.photos
+                ) {
+                    setPhotos(place.photos);
+                }
+            });
+        }
+    };
+
     if (!playground) {
         return <NotFoundPage />;
     }
@@ -39,6 +62,7 @@ const PlaygroundPage = () => {
                         currentPage={1}
                         containerStyle={{ width: "100%", height: "250px" }}
                         maxZoom={14}
+                        onMapLoad={onMapLoad}
                     />
                 </div>
                 <div className="px-6 pt-7">
@@ -62,6 +86,8 @@ const PlaygroundPage = () => {
                                     )
                                     .join(", ");
                                 break;
+                            default:
+                                break;
                         }
                         return field_value ? (
                             <p key={field.name}>
@@ -73,6 +99,19 @@ const PlaygroundPage = () => {
                         );
                     })}
                 </div>
+            </div>
+            <div className="my-6 flex flex-row flex-wrap">
+                {photos.map((photo, i) => (
+                    <img
+                        key={i}
+                        src={`${photo.getUrl({
+                            maxHeight: 200,
+                            maxWidth: 200,
+                        })}`}
+                        alt={playground.name}
+                        className="p-3"
+                    />
+                ))}
             </div>
         </>
     );
