@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+
 import Filter from "../components/Filter";
 import Map from "../components/Map";
 import PlaygroundsList from "../components/PlaygroundsList";
@@ -10,12 +12,20 @@ import { filterList } from "../filter_list";
 const PAGE_SIZE = 5;
 
 const HomePage = () => {
-    const [currentPage, setCurrentPage] = useState(1);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const initialPageNumber = parseInt(queryParams.get("page")) || 1;
+
+    const [currentPage, setCurrentPage] = useState(initialPageNumber);
     const [totalCount, setTotalCount] = useState(playgroundsList.length);
     const [allFilteredPlaygrounds, setAllFilteredPlaygrounds] =
         useState(playgroundsList);
     const [paginatedPlaygrounds, setPaginatedPlaygrounds] = useState(
-        playgroundsList.slice(0, PAGE_SIZE)
+        playgroundsList.slice(
+            (initialPageNumber - 1) * PAGE_SIZE,
+            initialPageNumber * PAGE_SIZE
+        )
     );
     const [hoverPlace, setHoverPlace] = useState(null);
 
@@ -31,6 +41,7 @@ const HomePage = () => {
         setCurrentPage(page);
         list = list.slice((page - 1) * pageSize, page * pageSize);
         setPaginatedPlaygrounds(list);
+        navigate(`?page=${page}`);
     };
 
     const onMouseOverPlayground = (place) => {
