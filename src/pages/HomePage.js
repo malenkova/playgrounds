@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import Filter from "../components/Filter";
@@ -28,6 +28,15 @@ const HomePage = () => {
         )
     );
     const [hoverPlace, setHoverPlace] = useState(null);
+
+    // Listen for changes to the `page` parameter in the URL
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const page = parseInt(queryParams.get("page")) || 1;
+        if (page !== currentPage) {
+            PaginationChange(page, PAGE_SIZE);
+        }
+    }, [location.search, currentPage]);
 
     const onSelectFilter = (filter) => {
         let list = filterList(playgroundsList, filter);
