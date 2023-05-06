@@ -6,14 +6,20 @@ import AboutPage from "./pages/AboutPage";
 import ContactsPage from "./pages/ContactsPage";
 import PlaygroundPage from "./pages/PlaygroundPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import SearchByName from "./components/SearchByName";
 
 function App() {
     return (
         <BrowserRouter>
             <div className="flex flex-col min-h-screen">
                 <header className=" text-my-green py-4 container mx-auto">
-                    <div className="container mx-auto">
-                        <NavBar />
+                    <div className="flex flex-col md:flex-row mx-auto">
+                        <div className="w-full md:w-1/2 md:pt-2">
+                            <NavBar />
+                        </div>
+                        <div className="w-full md:w-1/2">
+                            <SearchByName />
+                        </div>
                     </div>
                 </header>
                 <main className="flex-grow container mx-auto bg-white p-4">
