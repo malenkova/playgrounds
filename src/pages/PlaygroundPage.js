@@ -9,18 +9,31 @@ import {
     FILTER_FIELD_RADIO,
     filterFields,
 } from "../components/filterFields";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const PlaygroundPage = () => {
-    const [photos, setPhotos] = useState([]);
     const { playgroundId } = useParams();
+    const [playground, setPlayground] = useState(
+        playgroundsList.find((a) => a.id === playgroundId)
+    );
+    const [map, setMap] = useState(null);
 
-    const playground = playgroundsList.find((a) => a.id === playgroundId);
+    useEffect(() => {
+        async function updatePlayground() {
+            let newPlayground = playgroundsList.find(
+                (a) => a.id === playgroundId
+            );
+            const photos = await getPhotos(newPlayground.googlePlaceId, map);
+            setPlayground({ ...newPlayground, photos: photos });
+        }
+        if (map) updatePlayground();
+    }, [playgroundId, map]);
 
-    const onMapLoad = (map) => {
-        if (map && playground.googlePlaceId) {
+    const getPhotos = (googlePlaceId, map) => {
+        return new Promise(function (resolve, reject) {
+            if (!map || !googlePlaceId) return null;
             const request = {
-                placeId: playground.googlePlaceId,
+                placeId: googlePlaceId,
                 fields: ["photos"],
             };
             const service = new window.google.maps.places.PlacesService(map);
@@ -31,11 +44,15 @@ const PlaygroundPage = () => {
                     place &&
                     place.photos
                 ) {
-                    setPhotos(place.photos);
+                    resolve(place.photos);
+                } else {
+                    reject([]);
                 }
             });
-        }
+        });
     };
+
+    const onMapLoad = (map) => setMap(map);
 
     if (!playground) {
         return <NotFoundPage />;
@@ -103,7 +120,9 @@ const PlaygroundPage = () => {
             </div>
 
             <div className="my-6">
-                {photos.length ? <PhotoGallery photos={photos} /> : ""}
+                {playground.photos && playground.photos.length && (
+                    <PhotoGallery photos={playground.photos} />
+                )}
             </div>
         </>
     );
