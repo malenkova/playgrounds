@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const NavBar = () => {
     return (
         <nav>
-            <ul className="flex flex-row text-xl mx-6">
+            <ul className="flex flex-row text-xl">
                 <li className="mr-6">
                     <Link to="/">Home</Link>
                 </li>

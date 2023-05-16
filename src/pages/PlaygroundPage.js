@@ -61,15 +61,15 @@ const PlaygroundPage = () => {
     return (
         <>
             <h1>{playground.name}</h1>
-            <div className="flex flex-row">
-                <div className="w-1/3">
+            <div className="flex flex-col md:flex-row">
+                <div className="w-full md:w-1/3">
                     <Link
                         target="_blank"
                         to={`https://www.google.com/maps/dir//${encodeURIComponent(
                             playground.name + " " + playground.address
                         )}`}
                     >
-                        <button className="filter-button float-right mb-2">
+                        <button className="filter-button md:float-right mb-2">
                             Get directions
                         </button>
                     </Link>
@@ -83,7 +83,7 @@ const PlaygroundPage = () => {
                         onMapLoad={onMapLoad}
                     />
                 </div>
-                <div className="px-6 pt-7">
+                <div className="w-full md:w-2/3 px-6 pt-7">
                     <h2>Features</h2>
                     {Object.values(filterFields).map((field) => {
                         let field_value = null;
