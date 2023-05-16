@@ -29,6 +29,11 @@ const filterFields = {
         title: "Sand pit",
         type: FILTER_FIELD_BOOLEAN,
     },
+    splash: {
+        name: "splash",
+        title: "Splash pad",
+        type: FILTER_FIELD_BOOLEAN,
+    },
     sp_needs_swings: {
         name: "sp_needs_swings",
         title: "Special needs swings",
