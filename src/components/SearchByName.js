@@ -32,6 +32,7 @@ const SearchByName = () => {
                 items={playgroundsList}
                 onSelect={handleOnSelect}
                 formatResult={formatResult}
+                styling={{ borderRadius: "12px", height: "36px" }}
             />
         </div>
     );
