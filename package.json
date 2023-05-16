@@ -20,7 +20,7 @@
     "yet-another-react-lightbox": "^3.5.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "NODE_ENV=dev react-scripts start",
     "build": "react-scripts build",
     "test": "NODE_ENV=test npx mocha \"src/**/*.test.js\" --require @babel/register --require ignore-styles --recursive",
     "eject": "react-scripts eject"
