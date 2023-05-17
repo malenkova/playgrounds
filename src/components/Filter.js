@@ -27,7 +27,7 @@ const Filter = ({ onSelectFilter }) => {
     return (
         <>
             <button
-                className="filter-button md:hidden"
+                className="button md:hidden"
                 onClick={(e) => setShowFilter(!showFilter)}
             >
                 Filter
@@ -148,13 +148,13 @@ const Filter = ({ onSelectFilter }) => {
                     return <></>;
                 })}
                 <button
-                    className="filter-button mt-1 mr-2 md:hidden"
+                    className="button mt-1 mr-2 md:hidden"
                     onClick={(e) => setShowFilter(!showFilter)}
                 >
                     Apply Filter
                 </button>
                 <button
-                    className="filter-button mt-1"
+                    className="button mt-1"
                     onClick={(e) => {
                         setFilter(initFilter);
                         onSelectFilter(initFilter);

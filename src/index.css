@@ -15,8 +15,8 @@
 }
 
 @layer components {
-    .filter-button {
-        @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded
+    .button {
+        @apply bg-gray-100 text-my-green font-bold py-2 px-4 rounded-md border border-gray-200 hover:border-gray-400
     }
 }
 
@@ -116,9 +116,9 @@
 .rc-pagination-next.rc-pagination-item-active a:hover,
 .rc-pagination-total-text.rc-pagination-item-active a,
 .rc-pagination-total-text.rc-pagination-item-active a:hover {
-    background-color: #5a8dee;
-    border-color: #5a8dee;
-    color: #ffffff !important;
+    background-color: rgb(243 244 246);
+    border-color: rgb(243 244 246);
+    color: #306100 !important;
 }
 
 .rc-pagination-item a:hover,

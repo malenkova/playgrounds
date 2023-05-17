@@ -69,7 +69,7 @@ const PlaygroundPage = () => {
                             playground.name + " " + playground.address
                         )}`}
                     >
-                        <button className="filter-button md:float-right mb-2">
+                        <button className="button md:float-right mb-2">
                             Get directions
                         </button>
                     </Link>
