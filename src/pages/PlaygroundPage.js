@@ -3,12 +3,7 @@ import playgroundsList from "../data/playgrounds";
 import NotFoundPage from "./NotFoundPage";
 import Map from "../components/Map";
 import PhotoGallery from "../components/PhotoGallery";
-import {
-    FILTER_FIELD_BOOLEAN,
-    FILTER_FIELD_MULTI_CHECKBOX,
-    FILTER_FIELD_RADIO,
-    filterFields,
-} from "../components/filterFields";
+import FeaturesList from "../components/FeaturesList";
 import { useEffect, useState } from "react";
 
 const PlaygroundPage = () => {
@@ -85,37 +80,7 @@ const PlaygroundPage = () => {
                 </div>
                 <div className="w-full md:w-2/3 px-6 pt-7">
                     <h2>Features</h2>
-                    {Object.values(filterFields).map((field) => {
-                        let field_value = null;
-                        switch (field.type) {
-                            case FILTER_FIELD_BOOLEAN:
-                                field_value = playground.filter[field.name]
-                                    ? "Yes"
-                                    : "No";
-                                break;
-                            case FILTER_FIELD_MULTI_CHECKBOX:
-                            case FILTER_FIELD_RADIO:
-                                field_value = playground.filter[field.name]
-                                    .map(
-                                        (v) =>
-                                            field.values.find(
-                                                (x) => x.value === v
-                                            ).title
-                                    )
-                                    .join(", ");
-                                break;
-                            default:
-                                break;
-                        }
-                        return field_value ? (
-                            <p key={field.name}>
-                                <strong>{field.title}: </strong>
-                                {field_value}
-                            </p>
-                        ) : (
-                            ""
-                        );
-                    })}
+                    <FeaturesList features={playground.filter} />
                 </div>
             </div>
 
