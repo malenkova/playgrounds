@@ -7,7 +7,7 @@ import PlaygroundsList from "../components/PlaygroundsList";
 
 import playgroundsList from "../data/playgrounds";
 import Pagination from "rc-pagination";
-import { filterList } from "../filter_list";
+import { filterList } from "../helpers/filterList";
 
 const PAGE_SIZE = 5;
 

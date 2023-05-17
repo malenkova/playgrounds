@@ -4,7 +4,7 @@ import {
     FILTER_FIELD_MULTI_CHECKBOX,
     FILTER_FIELD_RADIO,
     RADIO_DEFAULT_VALUE,
-} from "./components/filterFields";
+} from "./filterFields";
 
 export const filterList = (playgroundsList, filter) => {
     if (filter === null) return playgroundsList;

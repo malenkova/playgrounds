@@ -3,7 +3,7 @@ import {
     FILTER_FIELD_MULTI_CHECKBOX,
     FILTER_FIELD_RADIO,
     filterFields,
-} from "../components/filterFields";
+} from "../helpers/filterFields";
 
 const FeaturesList = ({ features }) => {
     let featuresString = [];

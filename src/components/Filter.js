@@ -5,7 +5,7 @@ import {
     FILTER_FIELD_MULTI_CHECKBOX,
     FILTER_FIELD_RADIO,
     RADIO_DEFAULT_VALUE,
-} from "./filterFields";
+} from "../helpers/filterFields";
 
 const Filter = ({ onSelectFilter }) => {
     const initFilter = {};

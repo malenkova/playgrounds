@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { filterList } from "../filter_list";
+import { filterList } from "../helpers/filterList";
 
 const fakeList = [
     {
