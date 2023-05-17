@@ -5,6 +5,7 @@ import Map from "../components/Map";
 import PhotoGallery from "../components/PhotoGallery";
 import FeaturesList from "../components/FeaturesList";
 import { useEffect, useState } from "react";
+import { getPhotos } from "../helpers/googleMap";
 
 const PlaygroundPage = () => {
     const { playgroundId } = useParams();
@@ -23,29 +24,6 @@ const PlaygroundPage = () => {
         }
         if (map) updatePlayground();
     }, [playgroundId, map]);
-
-    const getPhotos = (googlePlaceId, map) => {
-        return new Promise(function (resolve, reject) {
-            if (!map || !googlePlaceId) return null;
-            const request = {
-                placeId: googlePlaceId,
-                fields: ["photos"],
-            };
-            const service = new window.google.maps.places.PlacesService(map);
-            service.getDetails(request, (place, status) => {
-                if (
-                    status ===
-                        window.google.maps.places.PlacesServiceStatus.OK &&
-                    place &&
-                    place.photos
-                ) {
-                    resolve(place.photos);
-                } else {
-                    reject([]);
-                }
-            });
-        });
-    };
 
     const onMapLoad = (map) => setMap(map);
 
