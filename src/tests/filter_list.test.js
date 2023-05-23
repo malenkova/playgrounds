@@ -14,8 +14,11 @@ const fakeList = [
             sand: true,
             splash: true,
             sp_needs_swings: true,
-            surface: ["rubber"],
-            structure: ["small", "big"],
+            surface_rubber: true,
+            surface_mulch: false,
+            surface_gravel: false,
+            structure_small: true,
+            structure_big: true,
         },
     },
     {
@@ -30,8 +33,11 @@ const fakeList = [
             sand: false,
             splash: false,
             sp_needs_swings: false,
-            surface: ["mulch"],
-            structure: ["small"],
+            surface_mulch: true,
+            surface_gravel: false,
+            surface_rubber: false,
+            structure_small: true,
+            structure_big: false,
         },
     },
     {
@@ -46,8 +52,11 @@ const fakeList = [
             sand: false,
             splash: false,
             sp_needs_swings: false,
-            surface: ["gravel"],
-            structure: ["big"],
+            surface_gravel: true,
+            surface_mulch: false,
+            surface_rubber: false,
+            structure_small: false,
+            structure_big: true,
         },
     },
 ];
@@ -68,13 +77,16 @@ describe("Filtering playgrounds list", () => {
             sand: false,
             splash: false,
             sp_needs_swings: false,
-            surface: "any",
-            structure: { small: false, big: false },
+            surface_gravel: false,
+            surface_mulch: false,
+            surface_rubber: false,
+            structure_small: false,
+            structure_big: false,
         };
         const actual = filterList(fakeList, filter);
         expect(actual).to.deep.equal(expected);
     });
-    it("return Playground 1 only when all checkboxes are selected", () => {
+    it("return Playground 1 only when all checkboxes are selected and surface is rubber", () => {
         const expected = [fakeList[0]];
         const filter = {
             parking: true,
@@ -84,8 +96,9 @@ describe("Filtering playgrounds list", () => {
             sand: true,
             splash: true,
             sp_needs_swings: true,
-            surface: "any",
-            structure: { small: true, big: true },
+            surface_rubber: true,
+            structure_small: true,
+            structure_big: true,
         };
         const actual = filterList(fakeList, filter);
         expect(actual).to.deep.equal(expected);
@@ -93,7 +106,7 @@ describe("Filtering playgrounds list", () => {
     it("return Playground 2 only when Mulch surface is selected and others filters is empty", () => {
         const expected = [fakeList[1]];
         const filter = {
-            surface: "mulch",
+            surface_mulch: true,
         };
         const actual = filterList(fakeList, filter);
         expect(actual).to.deep.equal(expected);
@@ -101,7 +114,8 @@ describe("Filtering playgrounds list", () => {
     it("return Playgrounds 1 and 3 when Bigger kids structure is selected", () => {
         const expected = [fakeList[0], fakeList[2]];
         const filter = {
-            structure: { small: false, big: true },
+            structure_small: false,
+            structure_big: true,
         };
         const actual = filterList(fakeList, filter);
         expect(actual).to.deep.equal(expected);
@@ -110,7 +124,7 @@ describe("Filtering playgrounds list", () => {
         const expected = [fakeList[2]];
         const filter = {
             restroom: true,
-            surface: "gravel",
+            surface_gravel: true,
         };
         const actual = filterList(fakeList, filter);
         expect(actual).to.deep.equal(expected);

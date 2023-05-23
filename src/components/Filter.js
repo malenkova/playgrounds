@@ -1,28 +1,43 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
     filterFields,
+    filterGroups,
     FILTER_FIELD_BOOLEAN,
     FILTER_FIELD_MULTI_CHECKBOX,
     FILTER_FIELD_RADIO,
     RADIO_DEFAULT_VALUE,
 } from "../helpers/filterFields";
+import FilterGroup from "./FilterGroup";
+import FilterCheckbox from "./FilterCheckbox";
+import FilterRadio from "./FilterRadio";
 
 const Filter = ({ onSelectFilter }) => {
     const initFilter = {};
     for (let field in filterFields) {
-        if (filterFields[field].type === FILTER_FIELD_BOOLEAN)
-            initFilter[field] = false;
-        else if (filterFields[field].type === FILTER_FIELD_MULTI_CHECKBOX) {
-            initFilter[field] = {};
-            for (let v of filterFields[field].values)
-                initFilter[field][v.value] = false;
-        } else if (filterFields[field].type === FILTER_FIELD_RADIO) {
-            initFilter[field] = RADIO_DEFAULT_VALUE;
+        if (filterFields[field].type === FILTER_FIELD_RADIO) {
+            initFilter[`${field}_${RADIO_DEFAULT_VALUE}`] = true;
         }
     }
 
     const [filter, setFilter] = useState(initFilter);
     const [showFilter, setShowFilter] = useState(false);
+
+    const onFilterChange = (name, value, prefixName = "") => {
+        if (prefixName) {
+            // for radio buttons put all values to false
+            for (let f in filter) {
+                if (f.slice(0, prefixName.length) === prefixName) {
+                    filter[f] = false;
+                }
+            }
+        }
+        let new_filter = {
+            ...filter,
+            [name]: value,
+        };
+        setFilter(new_filter);
+        onSelectFilter(new_filter);
+    };
 
     return (
         <>
@@ -32,7 +47,6 @@ const Filter = ({ onSelectFilter }) => {
             >
                 Filter
             </button>
-            <h2 className="text-lg font-bold mt-1">Features</h2>
             <div
                 id="filter-container"
                 className={
@@ -41,112 +55,68 @@ const Filter = ({ onSelectFilter }) => {
                         : "hidden md:block"
                 }
             >
-                {Object.values(filterFields).map((f) => {
-                    if (f.type === FILTER_FIELD_BOOLEAN) {
-                        let id = f.name + "_field";
-                        return (
-                            <div key={id} className="w-1/2 md:w-full">
-                                <input
-                                    id={id}
-                                    className="mr-2 rounded-md border-gray-300 focus:outline-none focus:border-blue-500"
-                                    type="checkbox"
-                                    checked={filter[f.name]}
-                                    onChange={(e) => {
-                                        let new_filter = {
-                                            ...filter,
-                                            [f.name]: e.target.checked,
-                                        };
-                                        setFilter(new_filter);
-                                        onSelectFilter(new_filter);
-                                    }}
-                                />
-                                <label htmlFor={id}>{f.title}</label>
-                            </div>
-                        );
-                    } else if (f.type === FILTER_FIELD_MULTI_CHECKBOX) {
-                        return (
-                            <div
-                                key={f.name + "_field"}
-                                className="w-1/2 md:w-full"
-                            >
-                                <h2 className="text-lg font-bold mt-1">
-                                    {f.title}
-                                </h2>
-                                {f.values.map((v) => {
-                                    let id = f.name + "_" + v.value + "_field";
-                                    return (
-                                        <div key={id}>
-                                            <input
-                                                id={id}
-                                                className="mr-2 rounded-md border-gray-300 focus:outline-none focus:border-blue-500"
-                                                type="checkbox"
-                                                checked={
-                                                    filter[f.name][v.value]
-                                                }
-                                                onChange={(e) => {
-                                                    let new_filter = {
-                                                        ...filter,
-                                                        [f.name]: {
-                                                            ...filter[f.name],
-                                                            [v.value]:
-                                                                e.target
-                                                                    .checked,
-                                                        },
-                                                    };
-                                                    setFilter(new_filter);
-                                                    onSelectFilter(new_filter);
-                                                }}
-                                            />
-                                            <label htmlFor={id}>
-                                                {v.title}
-                                            </label>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        );
-                    } else if (f.type === FILTER_FIELD_RADIO) {
-                        return (
-                            <div
-                                key={f.name + "_field"}
-                                className="w-1/2 md:w-full"
-                            >
-                                <h2 className="text-lg font-bold mt-1">
-                                    {f.title}
-                                </h2>
-                                {f.values.map((v) => {
-                                    let id = f.name + "_" + v.value + "_field";
-                                    return (
-                                        <div key={id}>
-                                            <input
-                                                id={id}
-                                                name={f.name}
-                                                className="mr-2 rounded-md border-gray-300 focus:outline-none focus:border-blue-500"
-                                                type="radio"
-                                                value={v.value}
-                                                checked={
-                                                    filter[f.name] === v.value
-                                                }
-                                                onChange={(e) => {
-                                                    let new_filter = {
-                                                        ...filter,
-                                                        [f.name]: v.value,
-                                                    };
-                                                    setFilter(new_filter);
-                                                    onSelectFilter(new_filter);
-                                                }}
-                                            />
-                                            <label htmlFor={id}>
-                                                {v.title}
-                                            </label>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        );
-                    }
-                    return <></>;
-                })}
+                {Object.values(filterGroups).map((fieldFroup) => (
+                    <FilterGroup
+                        title={fieldFroup.title}
+                        key={fieldFroup.title}
+                    >
+                        {fieldFroup.items.map((field_name) => {
+                            const field = filterFields[field_name];
+                            if (field.type === FILTER_FIELD_BOOLEAN) {
+                                return (
+                                    <FilterCheckbox
+                                        key={field_name}
+                                        title={field.title}
+                                        name={field.name}
+                                        value={filter[field_name]}
+                                        onChange={onFilterChange}
+                                    />
+                                );
+                            } else if (
+                                field.type === FILTER_FIELD_MULTI_CHECKBOX
+                            ) {
+                                return (
+                                    <React.Fragment key={field_name}>
+                                        <p className="mt-1">{field.title}:</p>
+                                        {field.values.map((v) => {
+                                            const v_name = `${field_name}_${v.name}`;
+                                            return (
+                                                <FilterCheckbox
+                                                    key={v_name}
+                                                    title={v.title}
+                                                    name={v_name}
+                                                    value={filter[v_name]}
+                                                    onChange={onFilterChange}
+                                                />
+                                            );
+                                        })}
+                                    </React.Fragment>
+                                );
+                            } else if (field.type === FILTER_FIELD_RADIO) {
+                                return (
+                                    <React.Fragment key={field_name}>
+                                        <p className="mt-1">{field.title}:</p>
+                                        {field.values.map((v) => {
+                                            const v_name = `${field_name}_${v.name}`;
+                                            return (
+                                                <FilterRadio
+                                                    key={v_name}
+                                                    title={v.title}
+                                                    name={field_name}
+                                                    value={v.name}
+                                                    checked={
+                                                        filter[v_name] === true
+                                                    }
+                                                    onChange={onFilterChange}
+                                                />
+                                            );
+                                        })}
+                                    </React.Fragment>
+                                );
+                            }
+                        })}
+                    </FilterGroup>
+                ))}
                 <button
                     className="button mt-1 mr-2 md:hidden"
                     onClick={(e) => setShowFilter(!showFilter)}
@@ -157,7 +127,7 @@ const Filter = ({ onSelectFilter }) => {
                     className="button mt-1"
                     onClick={(e) => {
                         setFilter(initFilter);
-                        onSelectFilter(initFilter);
+                        onSelectFilter(null);
                     }}
                 >
                     Clear Filter

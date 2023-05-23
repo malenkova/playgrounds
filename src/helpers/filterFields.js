@@ -21,7 +21,7 @@ const filterFields = {
     },
     water: {
         name: "water",
-        title: "Water",
+        title: "Water (lake, river)",
         type: FILTER_FIELD_BOOLEAN,
     },
     sand: {
@@ -44,10 +44,10 @@ const filterFields = {
         title: "Surface",
         type: FILTER_FIELD_RADIO,
         values: [
-            { title: "Any", value: RADIO_DEFAULT_VALUE },
-            { title: "Rubber", value: "rubber" },
-            { title: "Gravel", value: "gravel" },
-            { title: "Mulch", value: "mulch" },
+            { title: "Any", name: RADIO_DEFAULT_VALUE },
+            { title: "Rubber", name: "rubber" },
+            { title: "Gravel", name: "gravel" },
+            { title: "Mulch", name: "mulch" },
         ],
     },
     structure: {
@@ -55,14 +55,30 @@ const filterFields = {
         title: "Structure for",
         type: FILTER_FIELD_MULTI_CHECKBOX,
         values: [
-            { title: "Smaller kids", value: "small" },
-            { title: "Bigger kids", value: "big" },
+            { title: "Smaller kids", name: "small" },
+            { title: "Bigger kids", name: "big" },
         ],
+    },
+};
+
+const filterGroups = {
+    playground: {
+        title: "Playground",
+        items: ["sp_needs_swings", "structure", "surface"],
+    },
+    amenities: {
+        title: "Amenities",
+        items: ["parking", "restroom", "sand", "splash"],
+    },
+    nature: {
+        title: "Nature",
+        items: ["trail", "water"],
     },
 };
 
 export {
     filterFields,
+    filterGroups,
     FILTER_FIELD_BOOLEAN,
     FILTER_FIELD_MULTI_CHECKBOX,
     FILTER_FIELD_RADIO,
