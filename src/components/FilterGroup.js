@@ -1,7 +1,7 @@
 const FilterGroup = ({ children, title }) => {
     return (
-        <fieldset className="border border-solid border-gray-300 p-3">
-            <legend className="font-bold px-2">{title}</legend>
+        <fieldset className="area mb-3">
+            <p className="font-bold">{title}</p>
             {children}
         </fieldset>
     );

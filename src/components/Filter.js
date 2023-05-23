@@ -77,7 +77,9 @@ const Filter = ({ onSelectFilter }) => {
                             ) {
                                 return (
                                     <React.Fragment key={field_name}>
-                                        <p className="mt-1">{field.title}:</p>
+                                        <p className="mt-1 font-semibold">
+                                            {field.title}
+                                        </p>
                                         {field.values.map((v) => {
                                             const v_name = `${field_name}_${v.name}`;
                                             return (
@@ -95,7 +97,9 @@ const Filter = ({ onSelectFilter }) => {
                             } else if (field.type === FILTER_FIELD_RADIO) {
                                 return (
                                     <React.Fragment key={field_name}>
-                                        <p className="mt-1">{field.title}:</p>
+                                        <p className="mt-1 font-semibold">
+                                            {field.title}
+                                        </p>
                                         {field.values.map((v) => {
                                             const v_name = `${field_name}_${v.name}`;
                                             return (

@@ -18,10 +18,8 @@ const PlaygroundsList = ({
                                 ? "border-gray-400"
                                 : "border-gray-200"
                         }
-                        rounded-md mb-3 px-3 py-2 shadow-sm 
-                        hover:cursor-pointer
-                        hover:border-gray-400
-                         border`}
+                        area
+                        hover:cursor-pointer`}
                         onMouseEnter={(e) => {
                             onMouseOverPlaygroundInList(place);
                             e.stopPropagation();
