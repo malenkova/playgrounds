@@ -28,7 +28,7 @@ const playgroundsList = [
     {
         id: "20",
         googlePlaceId: "ChIJw5C1VogtW4YRGEce81-ZDI8",
-        name: "Milburn Park",
+        name: "Elizabeth Milburn Park",
         address: "1901 Sun Chase Blvd, Cedar Park, TX 78613",
         geometry: {
             location: {
@@ -45,7 +45,7 @@ const playgroundsList = [
             sp_needs_swings: false,
             surface_mulch: true,
             surface_gravel: false,
-            structure_small: false,
+            surface_rubber: false,
             structure_small: true,
             structure_big: true,
             splash: false,
@@ -200,7 +200,7 @@ const playgroundsList = [
             sand: true,
             sp_needs_swings: false,
             surface_rubber: true,
-            surface_mulch: true,
+            surface_mulch: false,
             surface_gravel: false,
             structure_small: true,
             structure_big: true,

@@ -35,7 +35,10 @@ const PlaygroundPage = () => {
         <>
             <h1>{playground.name}</h1>
             <div className="flex flex-col md:flex-row">
-                <div className="w-full md:w-1/3">
+                <div className="w-full md:w-2/3 mr-6">
+                    <FeaturesList features={playground.filter} />
+                </div>
+                <div className="area w-full md:w-1/3">
                     <Link
                         target="_blank"
                         to={`https://www.google.com/maps/dir//${encodeURIComponent(
@@ -55,10 +58,6 @@ const PlaygroundPage = () => {
                         maxZoom={14}
                         onMapLoad={onMapLoad}
                     />
-                </div>
-                <div className="w-full md:w-2/3 px-6 pt-7">
-                    <h2>Features</h2>
-                    <FeaturesList features={playground.filter} />
                 </div>
             </div>
 
