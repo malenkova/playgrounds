@@ -19,7 +19,7 @@ const SearchByName = () => {
     };
 
     return (
-        <div className="relative">
+        <div className="relative z-50">
             <ReactSearchAutocomplete
                 fuseOptions={{
                     keys: ["name", "address"],
