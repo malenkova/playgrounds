@@ -5,21 +5,12 @@ import {
     FILTER_FIELD_BOOLEAN,
     FILTER_FIELD_MULTI_CHECKBOX,
     FILTER_FIELD_RADIO,
-    RADIO_DEFAULT_VALUE,
 } from "../helpers/filterFields";
 import FilterGroup from "./FilterGroup";
 import FilterCheckbox from "./FilterCheckbox";
 import FilterRadio from "./FilterRadio";
 
-const Filter = ({ onSelectFilter }) => {
-    const initFilter = {};
-    for (let field in filterFields) {
-        if (filterFields[field].type === FILTER_FIELD_RADIO) {
-            initFilter[`${field}_${RADIO_DEFAULT_VALUE}`] = true;
-        }
-    }
-
-    const [filter, setFilter] = useState(initFilter);
+const Filter = ({ filter, onSelectFilter }) => {
     const [showFilter, setShowFilter] = useState(false);
 
     const onFilterChange = (name, value, prefixName = "") => {
@@ -35,7 +26,6 @@ const Filter = ({ onSelectFilter }) => {
             ...filter,
             [name]: value,
         };
-        setFilter(new_filter);
         onSelectFilter(new_filter);
     };
 
@@ -118,6 +108,7 @@ const Filter = ({ onSelectFilter }) => {
                                     </React.Fragment>
                                 );
                             }
+                            return null;
                         })}
                     </FilterGroup>
                 ))}
@@ -130,7 +121,6 @@ const Filter = ({ onSelectFilter }) => {
                 <button
                     className="button mt-1"
                     onClick={(e) => {
-                        setFilter(initFilter);
                         onSelectFilter(null);
                     }}
                 >

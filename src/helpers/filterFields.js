@@ -76,11 +76,52 @@ const filterGroups = {
     },
 };
 
+const filterKeys = [];
+for (let field_name in filterFields) {
+    if (!filterFields[field_name].values) filterKeys.push(field_name);
+    else {
+        filterFields[field_name].values.map((v) =>
+            filterKeys.push(field_name + "_" + v.name)
+        );
+    }
+}
+
+// Build URL with query string for filter
+const filterObjectToQueryString = (filter) => {
+    const filterForQuery = {};
+    for (let field_name in filter) {
+        if (filter[field_name] === true) {
+            filterForQuery[field_name] = 1;
+        }
+    }
+    return new URLSearchParams(filterForQuery).toString();
+};
+
+// Build filter object from URL params
+const queryStringToFilterObject = (query) => {
+    const filter = {};
+    for (let field in filterFields) {
+        if (filterFields[field].type === FILTER_FIELD_RADIO) {
+            filter[`${field}_${RADIO_DEFAULT_VALUE}`] = true;
+        }
+    }
+    const searchParams = new URLSearchParams(query);
+    for (const [name, value] of searchParams.entries()) {
+        if (filterKeys.includes(name) && value === "1") {
+            filter[name] = true;
+        }
+    }
+    return filter;
+};
+
 export {
     filterFields,
     filterGroups,
+    filterKeys,
     FILTER_FIELD_BOOLEAN,
     FILTER_FIELD_MULTI_CHECKBOX,
     FILTER_FIELD_RADIO,
     RADIO_DEFAULT_VALUE,
+    filterObjectToQueryString,
+    queryStringToFilterObject,
 };

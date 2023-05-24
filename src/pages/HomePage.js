@@ -8,6 +8,10 @@ import PlaygroundsList from "../components/PlaygroundsList";
 import playgroundsList from "../data/playgrounds";
 import Pagination from "rc-pagination";
 import { filterList } from "../helpers/filterList";
+import {
+    filterObjectToQueryString,
+    queryStringToFilterObject,
+} from "../helpers/filterFields";
 
 const PAGE_SIZE = 5;
 
@@ -28,29 +32,39 @@ const HomePage = () => {
         )
     );
     const [hoverPlace, setHoverPlace] = useState(null);
+    const [filter, setFilter] = useState({});
 
-    // Listen for changes to the `page` parameter in the URL
+    // Listen for changes to the `page` and filter parameters in the URL
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
         const page = parseInt(queryParams.get("page")) || 1;
-        if (page !== currentPage) {
-            PaginationChange(page, PAGE_SIZE);
-        }
-    }, [location.search, currentPage]);
+        const filterFromURL = queryStringToFilterObject(queryParams.toString());
 
-    const onSelectFilter = (filter) => {
-        let list = filterList(playgroundsList, filter);
+        // First - filter the list
+        setFilter(filterFromURL);
+        setCurrentPage(page);
+        let list = filterList(playgroundsList, filterFromURL);
         setTotalCount(list.length);
         setAllFilteredPlaygrounds(list);
-        PaginationChange(1, PAGE_SIZE, list);
+
+        // Second - slice list
+        list = list.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+        setPaginatedPlaygrounds(list);
+    }, [location.search]);
+
+    // Change URL when page number of filter changes
+    const handleNavigate = (page, filter) => {
+        navigate(`?page=${page}&${filterObjectToQueryString(filter)}`);
     };
 
-    const PaginationChange = (page, pageSize, list = null) => {
-        if (list === null) list = allFilteredPlaygrounds;
-        setCurrentPage(page);
-        list = list.slice((page - 1) * pageSize, page * pageSize);
-        setPaginatedPlaygrounds(list);
-        navigate(`?page=${page}`);
+    // Change filter
+    const onSelectFilter = (filter) => {
+        handleNavigate(1, filter);
+    };
+
+    // Change page number
+    const onChangePage = (page) => {
+        handleNavigate(page, filter);
     };
 
     const onMouseOverPlayground = (place) => {
@@ -60,7 +74,7 @@ const HomePage = () => {
     return (
         <div className="flex-grow container mx-auto flex flex-col md:flex-row">
             <div className="w-full md:w-1/4 p-4">
-                <Filter onSelectFilter={onSelectFilter} />
+                <Filter filter={filter} onSelectFilter={onSelectFilter} />
             </div>
             <div className="w-full md:w-1/2 p-4">
                 {paginatedPlaygrounds.length ? (
@@ -80,7 +94,7 @@ const HomePage = () => {
                                 `Showing ${range[0]}-${range[1]} of ${total}`
                             }
                             current={currentPage}
-                            onChange={PaginationChange}
+                            onChange={onChangePage}
                         />
                     </>
                 ) : (
