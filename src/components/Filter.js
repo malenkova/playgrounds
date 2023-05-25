@@ -41,8 +41,8 @@ const Filter = ({ filter, onSelectFilter }) => {
                 id="filter-container"
                 className={
                     showFilter
-                        ? "flex flex-row flex-wrap md:block"
-                        : "hidden md:block"
+                        ? "flex flex-row flex-wrap md:block mt-4 md:mt-0"
+                        : "hidden md:block mt-4 md:mt-0"
                 }
             >
                 {Object.values(filterGroups).map((fieldFroup) => (
@@ -125,6 +125,7 @@ const Filter = ({ filter, onSelectFilter }) => {
                     className="button mt-1"
                     onClick={(e) => {
                         onSelectFilter(null);
+                        setShowFilter(!showFilter);
                     }}
                 >
                     Clear Filter
