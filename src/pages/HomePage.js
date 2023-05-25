@@ -7,11 +7,14 @@ import PlaygroundsList from "../components/PlaygroundsList";
 
 import playgroundsList from "../data/playgrounds";
 import Pagination from "rc-pagination";
+import locale from "rc-pagination/es/locale/en_US";
 import { filterList } from "../helpers/filterList";
 import {
     filterObjectToQueryString,
     queryStringToFilterObject,
 } from "../helpers/filterFields";
+
+import "../pagination.css";
 
 const PAGE_SIZE = 5;
 
@@ -87,6 +90,7 @@ const HomePage = () => {
                             onMouseOverPlaygroundInList={onMouseOverPlayground}
                         />
                         <Pagination
+                            locale={locale}
                             total={totalCount}
                             pageSize={PAGE_SIZE}
                             hideOnSinglePage={true}
