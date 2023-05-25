@@ -87,7 +87,7 @@ const filterFields = {
     },
     structure: {
         name: "structure",
-        title: "Structure for",
+        title: "Playscape for",
         type: FILTER_FIELD_MULTI_CHECKBOX,
         values: [
             {
