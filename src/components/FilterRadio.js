@@ -1,6 +1,13 @@
-const FilterRadio = ({ title, name, value, checked, onChange }) => {
+import FilterIcon from "./FilterIcon";
+
+const FilterRadio = ({ title, name, value, checked, onChange, icon }) => {
     return (
-        <label className="block">
+        <label className="flex">
+            <FilterIcon
+                title={title}
+                color={icon.color}
+                component={icon.component}
+            />
             <input
                 className="mr-2 rounded-md border-gray-300 focus:outline-none focus:border-blue-500"
                 type="radio"

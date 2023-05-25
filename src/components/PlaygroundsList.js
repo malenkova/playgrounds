@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { FeaturesListShort } from "./FeaturesList";
 
 const PlaygroundsList = ({
     playgrounds = [],
@@ -41,6 +42,7 @@ const PlaygroundsList = ({
                                     {place.name}
                                 </p>
                                 <p>{place.address}</p>
+                                <FeaturesListShort features={place.filter} />
                             </div>
                         </Link>
                     </li>

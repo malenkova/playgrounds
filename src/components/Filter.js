@@ -60,6 +60,7 @@ const Filter = ({ filter, onSelectFilter }) => {
                                         name={field.name}
                                         value={filter[field_name]}
                                         onChange={onFilterChange}
+                                        icon={field.icon}
                                     />
                                 );
                             } else if (
@@ -79,6 +80,7 @@ const Filter = ({ filter, onSelectFilter }) => {
                                                     name={v_name}
                                                     value={filter[v_name]}
                                                     onChange={onFilterChange}
+                                                    icon={v.icon}
                                                 />
                                             );
                                         })}
@@ -102,6 +104,7 @@ const Filter = ({ filter, onSelectFilter }) => {
                                                         filter[v_name] === true
                                                     }
                                                     onChange={onFilterChange}
+                                                    icon={v.icon}
                                                 />
                                             );
                                         })}

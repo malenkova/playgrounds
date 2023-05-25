@@ -1,53 +1,88 @@
+import {
+    GiTrail,
+    GiSpade,
+    GiWaterSplash,
+    GiStoneStack,
+    GiTreeBranch,
+    GiPuzzle,
+} from "react-icons/gi";
+import { FaRestroom, FaParking, FaBaby, FaChild } from "react-icons/fa";
+import { BsWater } from "react-icons/bs";
+import { TbDisabled } from "react-icons/tb";
+
 const FILTER_FIELD_BOOLEAN = "boolean";
 const FILTER_FIELD_MULTI_CHECKBOX = "multi-checkbox";
 const FILTER_FIELD_RADIO = "radio";
 const RADIO_DEFAULT_VALUE = "any";
+
+const filterBlueColor = "rgb(59 130 246)";
+const filterBrownColor = "brown";
+const filterOrangeColor = "orange";
 
 const filterFields = {
     parking: {
         name: "parking",
         title: "Parking",
         type: FILTER_FIELD_BOOLEAN,
+        icon: { component: <FaParking />, color: filterBlueColor },
     },
     restroom: {
         name: "restroom",
         title: "Restroom",
         type: FILTER_FIELD_BOOLEAN,
+        icon: { component: <FaRestroom /> },
     },
     trail: {
         name: "trail",
         title: "Trail",
         type: FILTER_FIELD_BOOLEAN,
+        icon: { component: <GiTrail />, color: filterBrownColor },
     },
     water: {
         name: "water",
         title: "Water (lake, river)",
         type: FILTER_FIELD_BOOLEAN,
+        icon: { component: <BsWater />, color: filterBlueColor },
     },
     sand: {
         name: "sand",
         title: "Sand pit",
         type: FILTER_FIELD_BOOLEAN,
+        icon: { component: <GiSpade />, color: filterOrangeColor },
     },
     splash: {
         name: "splash",
         title: "Splash pad",
         type: FILTER_FIELD_BOOLEAN,
+        icon: { component: <GiWaterSplash />, color: filterBlueColor },
     },
     sp_needs_swings: {
         name: "sp_needs_swings",
-        title: "Special needs swings",
+        title: "Special swings",
         type: FILTER_FIELD_BOOLEAN,
+        icon: { component: <TbDisabled /> },
     },
     surface: {
         name: "surface",
         title: "Surface",
         type: FILTER_FIELD_RADIO,
         values: [
-            { title: "Any", name: RADIO_DEFAULT_VALUE },
-            { title: "Rubber", name: "rubber" },
-            { title: "Gravel", name: "gravel" },
-            { title: "Mulch", name: "mulch" },
+            { title: "Any", name: RADIO_DEFAULT_VALUE, icon: {} },
+            {
+                title: "Rubber",
+                name: "rubber",
+                icon: { component: <GiPuzzle />, color: filterBlueColor },
+            },
+            {
+                title: "Gravel",
+                name: "gravel",
+                icon: { component: <GiStoneStack /> },
+            },
+            {
+                title: "Mulch",
+                name: "mulch",
+                icon: { component: <GiTreeBranch />, color: filterBrownColor },
+            },
         ],
     },
     structure: {
@@ -55,8 +90,16 @@ const filterFields = {
         title: "Structure for",
         type: FILTER_FIELD_MULTI_CHECKBOX,
         values: [
-            { title: "Smaller kids", name: "small" },
-            { title: "Bigger kids", name: "big" },
+            {
+                title: "Smaller kids",
+                name: "small",
+                icon: { component: <FaBaby /> },
+            },
+            {
+                title: "Bigger kids",
+                name: "big",
+                icon: { component: <FaChild /> },
+            },
         ],
     },
 };
