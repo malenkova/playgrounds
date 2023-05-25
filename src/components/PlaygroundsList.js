@@ -32,7 +32,11 @@ const PlaygroundsList = ({
                             className="w-full flex"
                         >
                             {place.image ? (
-                                <img src="{place.image}" alt={place.name}></img>
+                                <img
+                                    src={`/images/playgrounds/${place.image}`}
+                                    alt={place.name}
+                                    className="w-28"
+                                ></img>
                             ) : (
                                 <div className="bg-gray-200 w-28 h-20"></div>
                             )}

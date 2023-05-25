@@ -4,6 +4,7 @@ const playgroundsList = [
         googlePlaceId: "ChIJYbVaHiUtW4YR0ox0PEZ2AsE",
         name: "Lakeline Park",
         address: "1510 Alexis Dr, Cedar Park, TX 78613",
+        image: "lakeline.jpeg",
         geometry: {
             location: {
                 lat: 30.48782,
@@ -30,6 +31,7 @@ const playgroundsList = [
         googlePlaceId: "ChIJw5C1VogtW4YRGEce81-ZDI8",
         name: "Elizabeth Milburn Park",
         address: "1901 Sun Chase Blvd, Cedar Park, TX 78613",
+        image: "milburn.png",
         geometry: {
             location: {
                 lat: 30.478901,
@@ -56,6 +58,7 @@ const playgroundsList = [
         googlePlaceId: "ChIJuQnel4AyW4YRENjG_8z-sVE",
         name: "Goldfinch Neighborhood",
         address: "2503 Goldfinch Dr, Cedar Park, TX 78613",
+        image: "goldfinch.jpg",
         geometry: {
             location: {
                 lat: 30.47227,
@@ -82,6 +85,7 @@ const playgroundsList = [
         googlePlaceId: "ChIJY92H-DstW4YR_GS97unP-Rc",
         name: "Forest Oaks Park",
         address: "521 S Lynnwood Trail, Cedar Park, TX 78613",
+        image: "forestoaks.jpeg",
         geometry: {
             location: {
                 lat: 30.50872,
@@ -160,6 +164,7 @@ const playgroundsList = [
         googlePlaceId: "ChIJXz87ROnSRIYRyf1iU1-LC9I",
         name: "Champion Park",
         address: "3830 Brushy Creek Rd, Cedar Park, TX 78613",
+        image: "champion.jpg",
         geometry: {
             location: {
                 lat: 30.50992577698729,
@@ -186,6 +191,7 @@ const playgroundsList = [
         googlePlaceId: "ChIJqYC4IXsyW4YRwjJTsKty0PE",
         name: "Anderson Mill West Park",
         address: "2900 El Salido Pkwy, Cedar Park, TX 78613",
+        image: "andersonmillwest.png",
         geometry: {
             location: {
                 lat: 30.466191014719293,
