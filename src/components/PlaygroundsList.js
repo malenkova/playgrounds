@@ -33,7 +33,10 @@ const PlaygroundsList = ({
                         >
                             {place.image ? (
                                 <img
-                                    src={`/images/playgrounds/${place.image}`}
+                                    src={
+                                        process.env.PUBLIC_URL +
+                                        `/images/playgrounds/${place.image}`
+                                    }
                                     alt={place.name}
                                     className="w-28"
                                 ></img>
