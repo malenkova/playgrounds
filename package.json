@@ -15,10 +15,11 @@
     "react-icons": "^4.8.0",
     "react-photo-album": "^2.1.0",
     "react-router-dom": "^6.10.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "react-search-autocomplete": "^8.5.2",
     "web-vitals": "^2.1.4",
-    "yet-another-react-lightbox": "^3.5.3"
+    "yet-another-react-lightbox": "^3.5.3",
+    "tailwindcss": "^3.3.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -30,10 +31,7 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ],
-    "env": {
-      "NODE_ENV": "development"
-    }
+    ]
   },
   "browserslist": {
     "production": [
@@ -56,7 +54,6 @@
     "babel-preset-react-app-babel-7": "^4.0.2-0",
     "chai": "^4.3.7",
     "ignore-styles": "^5.0.1",
-    "mocha": "^10.2.0",
-    "tailwindcss": "^3.3.1"
+    "mocha": "^10.2.0"
   }
 }
