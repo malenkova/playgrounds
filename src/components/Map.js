@@ -46,10 +46,13 @@ const Map = ({
         libraries: libraries,
     });
 
-    const onLoad = useCallback((map) => {
-        if (onMapLoad != null) onMapLoad(map);
-        return setMap(map);
-    }, []);
+    const onLoad = useCallback(
+        (map) => {
+            if (onMapLoad != null) onMapLoad(map);
+            return setMap(map);
+        },
+        [onMapLoad]
+    );
 
     if (maxZoom !== null) defaultProps.maxZoom = maxZoom;
 

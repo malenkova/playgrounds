@@ -26,8 +26,7 @@ const HomePage = () => {
 
     const [currentPage, setCurrentPage] = useState(initialPageNumber);
     const [totalCount, setTotalCount] = useState(playgroundsList.length);
-    const [allFilteredPlaygrounds, setAllFilteredPlaygrounds] =
-        useState(playgroundsList);
+
     const [paginatedPlaygrounds, setPaginatedPlaygrounds] = useState(
         playgroundsList.slice(
             (initialPageNumber - 1) * PAGE_SIZE,
@@ -48,7 +47,6 @@ const HomePage = () => {
         setCurrentPage(page);
         let list = filterList(playgroundsList, filterFromURL);
         setTotalCount(list.length);
-        setAllFilteredPlaygrounds(list);
 
         // Second - slice list
         list = list.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
