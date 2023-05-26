@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/playgrounds/static/css/main.25f011c8.css",
+    "main.js": "/playgrounds/static/js/main.d43afc89.js",
+    "static/js/787.adec8cee.chunk.js": "/playgrounds/static/js/787.adec8cee.chunk.js",
+    "index.html": "/playgrounds/index.html",
+    "main.25f011c8.css.map": "/playgrounds/static/css/main.25f011c8.css.map",
+    "main.d43afc89.js.map": "/playgrounds/static/js/main.d43afc89.js.map",
+    "787.adec8cee.chunk.js.map": "/playgrounds/static/js/787.adec8cee.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.25f011c8.css",
+    "static/js/main.d43afc89.js"
+  ]
+}
